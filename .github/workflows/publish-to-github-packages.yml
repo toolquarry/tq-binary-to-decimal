@@ -1,0 +1,34 @@
+name: Publish to GitHub Packages
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        uses: actions/setup-python@v2
+
+      - name: Configure Git
+        env:
+          GITHUB_USER: ${{ secrets.GIT_USER_NAME }}
+          GITHUB_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+        run: |
+          git config --global user.name $GIT_USER_NAME
+          git config --global user.email $GIT_USER_EMAIL
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Build and publish package
+        run: |
+          make build
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u USERNAME --password-stdin
+          docker build -t docker.pkg.github.com/USERNAME/binary_to_decimal/binary_to_decimal:latest .
+          docker push docker.pkg.github.com/USERNAME/binary_to_decimal/binary_to_decimal:latest

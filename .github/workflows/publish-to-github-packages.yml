@@ -30,5 +30,4 @@ jobs:
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u toolquarry --password-stdin
           docker build -t docker.pkg.github.com/toolquarry/tq-binary-to-decimal/tq-binary-to-decimal:latest .
-          docker tag docker.pkg.github.com/toolquarry/tq-binary-to-decimal/tq-binary-to-decimal:latest docker.pkg.github.com/toolquarry/tq-binary-to-decimal/tq-binary-to-decimal:latest
           docker push docker.pkg.github.com/toolquarry/tq-binary-to-decimal/tq-binary-to-decimal:latest

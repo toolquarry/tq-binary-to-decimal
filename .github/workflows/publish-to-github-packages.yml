@@ -29,6 +29,6 @@ jobs:
       - name: Build and publish package
         run: |
           make build
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u USERNAME --password-stdin
-          docker build -t docker.pkg.github.com/USERNAME/binary_to_decimal/binary_to_decimal:latest .
-          docker push docker.pkg.github.com/USERNAME/binary_to_decimal/binary_to_decimal:latest
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u toolquarry --password-stdin
+          docker build -t docker.pkg.github.com/toolquarry/binary_to_decimal/binary_to_decimal:latest .
+          docker push docker.pkg.github.com/toolquarry/binary_to_decimal/binary_to_decimal:latest
